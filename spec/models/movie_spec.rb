@@ -23,5 +23,11 @@ RSpec.describe Movie, type: :model do
         expect(@movie_1.actors_by_age).to eq([@actor_2, @actor_1])
       end
     end
+
+    describe '#actors_average_age' do
+      it 'returns average age of actors' do
+        expect(@movie_1.actors_average_age).to eq(65)
+      end
+    end 
   end
 end
