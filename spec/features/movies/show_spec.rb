@@ -6,6 +6,9 @@ RSpec.describe 'movie show page' do
 
     @movie_1 = @universal.movies.create!(title: 'Raiders of the Lost Ark', creation_year: 1981, genre: 'Action/Adventure')
     @movie_2 = @universal.movies.create!(title: 'Shrek', creation_year: 2001, genre: 'Comedy')
+
+    @actor_1 = @movie_1.actors.create!(name: "Harrison Ford", age: 79)
+    @actor_2 = @movie_1.actors.create!(name: "Cate Blanchett", age: 52)
   end
 
   it 'shows movies titles' do
@@ -26,17 +29,17 @@ RSpec.describe 'movie show page' do
     expect(page).to have_content(@movie_1.genre)
   end
 
-  xit 'shows movies actors' do 
+  it 'shows movies actors' do
     visit "/movies/#{@movie_1.id}"
 
-    expect(page).to have_content(@actor_1)
-    expect(page).to have_content(@actor_2)
+    expect(page).to have_content(@actor_1.name)
+    expect(page).to have_content(@actor_2.name)
   end
 
-  xit 'shows movies actors ordered by age asc' do
+  it 'shows movies actors ordered by age asc' do
     visit "/movies/#{@movie_1.id}"
 
-    expect(@actor_2).to appear_before(@actor_1)
+    expect(@actor_2.name).to appear_before(@actor_1.name)
   end
 
   xit 'shows average age of all actors' do
