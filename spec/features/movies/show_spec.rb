@@ -14,6 +14,7 @@ RSpec.describe 'movie show page' do
 
   it 'shows movies titles' do
     visit "/movies/#{@movie_1.id}"
+    
     expect(page).to have_content(@movie_1.title)
     expect(page).to_not have_content(@movie_2.title)
   end
