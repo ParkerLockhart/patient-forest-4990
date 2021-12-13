@@ -9,6 +9,7 @@ RSpec.describe 'movie show page' do
 
     @actor_1 = @movie_1.actors.create!(name: "Harrison Ford", age: 79)
     @actor_2 = @movie_1.actors.create!(name: "Cate Blanchett", age: 52)
+    @actor_3 = Actor.create!(name: "Actor Person", age: 33)
   end
 
   it 'shows movies titles' do
@@ -46,6 +47,17 @@ RSpec.describe 'movie show page' do
     visit "/movies/#{@movie_1.id}"
 
     expect(page).to have_content(@movie_1.actors_average_age)
+  end
+
+  it 'can add existing actor to movie' do
+    visit "/movies/#{@movie_1.id}"
+
+    fill_in('name', with: @actor_3.name)
+    click_button("Submit")
+
+    expect(current_path).to eq("/movies/#{@movie_1.id}")
+    expect(page).to have_content('Actor Person')
+    expect(@movie_1.actors_average_age).to eq(54)
   end
 
 end
